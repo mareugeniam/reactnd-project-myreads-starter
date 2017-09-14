@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import ListBookshelves from './ListBookshelves'
 
@@ -18,7 +19,10 @@ class Library extends Component {
             </div>
             <ListBookshelves shelves={shelves} books={books}/>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+                <Link
+                    to='/search'
+                    className='add-book'
+                >Add a book</Link>
             </div>
           </div>
         )

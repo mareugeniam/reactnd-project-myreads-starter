@@ -9,7 +9,6 @@ class ListBooks extends Component {
 
     render(){
         const { books, shelf } = this.props
-        console.log(books)
 
         let filterBooks
         if (shelf) {
