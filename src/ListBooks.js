@@ -24,7 +24,9 @@ class ListBooks extends Component {
                     <div className="book">
                     <div className="book-top">
                         <div className="book-cover">
-                            <img alt={book.title} src={book.imageLinks.smallThumbnail} />
+                            {book.imageLinks !== undefined && (
+                                <img alt={book.title} src={book.imageLinks.smallThumbnail} />
+                            )}
                         </div>
                         <div className="book-shelf-changer">
                         <select>
