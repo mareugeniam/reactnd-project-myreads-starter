@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 class ListBooks extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
-        shelf: PropTypes.string   
-    }    
+        shelf: PropTypes.object
+    }
 
     render(){
         const { books, shelf } = this.props
 
         let filterBooks
         if (shelf) {
-            filterBooks = books.filter((book) => book.shelf === shelf)
+            filterBooks = books.filter((book) => book.shelf === shelf.value)
         } else {
             filterBooks = books
         }

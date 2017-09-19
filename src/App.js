@@ -9,9 +9,11 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     shelves: [
-      {title: 'Currently Reading', name: 'currentlyReading'},
-      {title: 'Want to Read', name: 'wantToRead'},
-      {title: 'Read', name: 'read'}
+      {title: 'Move to...', value: 'none', show: false},
+      {title: 'Currently Reading', value: 'currentlyReading', show: true},
+      {title: 'Want to Read', value: 'wantToRead', show: true},
+      {title: 'Read', value: 'read', show: true},
+      {title: 'None', value: 'none', show: false}
     ]
   }
 
@@ -21,13 +23,17 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBookShelf(book,shelf){
+    BooksAPI.update(book,shelf).then(this.componentDidMount)
+  }
+
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <Library shelves={this.state.shelves} books={this.state.books}/>
         )}/>
-        <Route path='/search' render={() => (
+        <Route path='/search' render={({ history }) => (
           <SearchBooks />
         )}/>        
       </div>

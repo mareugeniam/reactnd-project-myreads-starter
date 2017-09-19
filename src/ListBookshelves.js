@@ -13,12 +13,12 @@ class ListBookshelves extends Component {
 
         return (
             <div className="list-books-content">
-                {shelves.map((shelf) => (
-                    <div key={shelf.name}>                
+                {shelves.filter((shelf) => shelf.show === true).map((shelf) => (
+                    <div key={shelf.value}>                
                         <div className="bookshelf">
                             <h2 className="bookshelf-title">{shelf.title}</h2>
                             <div className="bookshelf-books">
-                                <ListBooks books={books} shelf={shelf.name}/>
+                                <ListBooks books={books} shelf={shelf}/>
                             </div>
                         </div>
                     </div>
