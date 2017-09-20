@@ -1,36 +1,45 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import ListBooks from './ListBooks'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component {
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        shelves: PropTypes.array.isRequired,
+        onUpdateBookShelf: PropTypes.func.isRequired
+    }
+
     state = {
         query: '',
-        books: []
+        searchedBooks: []
     }
 
     updateQuery = (query) => {
         this.setState({ query: query.trim() });
-        this.onSearch()
+        this.onSearch();
     }
 
     onSearch(){
         if (this.state.query) {
-            BooksAPI.search(this.state.query,20).then((books) => {
-            this.setState({ books })
-            })
+            BooksAPI.search(this.state.query,20).then((searchedBooks) => {
+                const searchedBooksUpdated = searchedBooks.map(b => {
+                    let bookFound = this.props.books.find(myBook => myBook.id === b.id);
+                    b.shelf = bookFound ? bookFound.shelf : 'none';
+                    return b;
+                });
+
+                this.setState({ searchedBooks: searchedBooksUpdated });
+            });                   
         }
-      }
+    }
 
     render() {
-        const { query, books } = this.state
+        const { query, searchedBooks } = this.state
+        const { onUpdateBookShelf, shelves } = this.props
 
-        let showingBooks
-        if(query) {            
-            showingBooks = books
-        } else {
-            showingBooks = []
-        }
+        let showingBooks = query ? searchedBooks : [];
 
         return(
             <div className="search-books">
@@ -57,7 +66,11 @@ class SearchBooks extends Component {
             </div>
             <div className="search-books-results">
                 {showingBooks.length > 0 && (
-                    <ListBooks books={showingBooks}/>
+                    <ListBooks 
+                        shelves={shelves}
+                        books={showingBooks}
+                        onUpdateBookShelf={onUpdateBookShelf}
+                    />
                 )} 
             </div>
           </div>

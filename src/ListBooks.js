@@ -4,18 +4,15 @@ import PropTypes from 'prop-types'
 class ListBooks extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
-        shelf: PropTypes.object
+        shelf: PropTypes.object,
+        shelves: PropTypes.array.isRequired,
+        onUpdateBookShelf: PropTypes.func.isRequired
     }
 
     render(){
-        const { books, shelf } = this.props
+        const { books, shelf, shelves, onUpdateBookShelf } = this.props
 
-        let filterBooks
-        if (shelf) {
-            filterBooks = books.filter((book) => book.shelf === shelf.value)
-        } else {
-            filterBooks = books
-        }
+        let filterBooks = shelf ? books.filter((book) => book.shelf === shelf.value) : books;
 
         return(
             <ol className="books-grid">
@@ -29,11 +26,11 @@ class ListBooks extends Component {
                             )}
                         </div>
                         <div className="book-shelf-changer">
-                        <select>
-                            <option value="none" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
+                        <select value={book.shelf} onChange={(event) => onUpdateBookShelf(book,event.target.value)}>
+                            <option disabled>Move to...</option>
+                            {shelves.map((shelf) => (
+                                    <option key={shelf.value} value={shelf.value}>{shelf.title}</option>
+                            ))}
                             <option value="none">None</option>
                         </select>
                         </div>

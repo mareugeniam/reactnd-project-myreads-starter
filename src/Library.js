@@ -6,18 +6,23 @@ import ListBookshelves from './ListBookshelves'
 class Library extends Component {
     static propTypes = {
         shelves: PropTypes.array.isRequired,
-        books: PropTypes.array.isRequired
+        books: PropTypes.array.isRequired,
+        onUpdateBookShelf: PropTypes.func.isRequired
     }
 
     render() {
-        const { shelves, books } = this.props
+        const { shelves, books, onUpdateBookShelf } = this.props
 
         return(
             <div className="list-books">            
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <ListBookshelves shelves={shelves} books={books}/>
+            <ListBookshelves 
+                shelves={shelves}
+                books={books}
+                onUpdateBookShelf={onUpdateBookShelf}
+            />
             <div className="open-search">
                 <Link
                     to='/search'
