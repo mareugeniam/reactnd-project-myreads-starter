@@ -10,7 +10,7 @@ class ListBookshelves extends Component {
     }
 
     render() {
-        const { shelves, books, onUpdateBookShelf } = this.props
+        const { shelves, books, onUpdateBookShelf } = this.props;
 
         return (
             <div className="list-books-content">

@@ -9,9 +9,29 @@ class ListBooks extends Component {
         onUpdateBookShelf: PropTypes.func.isRequired
     }
 
-    render(){
-        const { books, shelf, shelves, onUpdateBookShelf } = this.props
+    state = {
+        books: null
+    }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            books: nextProps.books
+        })
+    }
+
+    updateBooksOnShelfChange(book,event){
+        let newShelf = event.target.value;
+        this.setState(currentState => {
+            let mb = currentState.books.find(b => b.id === book.id);
+            mb.shelf = newShelf;
+            return currentState;
+        });
+    }
+
+    render(){
+        const { shelf, shelves, onUpdateBookShelf } = this.props;          
+        const books = this.state.books || this.props.books;
+        
         let filterBooks = shelf ? books.filter((book) => book.shelf === shelf.value) : books;
 
         return(
@@ -26,7 +46,13 @@ class ListBooks extends Component {
                             )}
                         </div>
                         <div className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(event) => onUpdateBookShelf(book,event.target.value)}>
+                        <select 
+                            value={book.shelf} 
+                            onChange={(event) => {
+                                this.state.books && this.updateBooksOnShelfChange(book,event);
+                                onUpdateBookShelf(book,event.target.value);
+                            }}
+                        >
                             <option disabled>Move to...</option>
                             {shelves.map((shelf) => (
                                     <option key={shelf.value} value={shelf.value}>{shelf.title}</option>
@@ -36,7 +62,7 @@ class ListBooks extends Component {
                         </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors}</div>
+                    <div className="book-authors">{book.authors ? book.authors.join(', '): ''}</div>
                     </div>
                 </li>
                 ))}
