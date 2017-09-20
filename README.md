@@ -1,13 +1,13 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity´s React Fundamentals course plus the React code that is needed to complete the project. The template was copied interactivity was added to the app by refactoring the static code in this template.
+This is the starter template for the final assessment project for Udacity´s React Fundamentals course plus the React code that is needed to complete the project. The template was copied and interactivity was added to the app by refactoring the static code in this template.
 
 ## TL;DR
 
 To use the project right away:
 
 * install all project dependencies with `npm install`
-* start the development server with `npm start`
+* start the server with `npm start`
 
 ## What the project contains
 ```bash
