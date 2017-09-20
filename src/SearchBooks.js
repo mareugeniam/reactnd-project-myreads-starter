@@ -17,18 +17,19 @@ class SearchBooks extends Component {
     }
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() });
-        this.state.query && this.onSearch();
+        this.setState({ query });
+        query && this.onSearch(query);
     }
 
-    onSearch(){
-        BooksAPI.search(this.state.query,20).then((searchedBooks) => {
-            const updatedBookList = searchedBooks.map(b => {
+    onSearch(query){
+        BooksAPI.search(query,20).then((searchedBooks) => {
+            const updatedBookList = !searchedBooks.error ?
+            searchedBooks.map(b => {
                 let bookFound = this.props.books.find(myBook => myBook.id === b.id);
                 b.shelf = bookFound ? bookFound.shelf : 'none';
                 return b;
-            });
-            this.setState({ searchedBooks : updatedBookList});              
+            }) : [];
+            this.setState({ searchedBooks : updatedBookList });              
         });
     }
 
