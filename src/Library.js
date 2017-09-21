@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import ListBookshelves from './ListBookshelves'
 
-const Library = (shelves, books, onUpdateBookShelf) => {
+const Library = (props) => {
 
     return(
         <div className="list-books">            
@@ -11,9 +11,9 @@ const Library = (shelves, books, onUpdateBookShelf) => {
             <h1>MyReads</h1>
         </div>
         <ListBookshelves 
-            shelves={shelves}
-            books={books}
-            onUpdateBookShelf={onUpdateBookShelf}
+            shelves={props.shelves}
+            books={props.books}
+            onUpdateBookShelf={props.onUpdateBookShelf}
         />
         <div className="open-search">
             <Link

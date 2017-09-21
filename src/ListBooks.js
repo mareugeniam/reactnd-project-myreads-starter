@@ -37,10 +37,17 @@ class ListBooks extends Component {
 
         return(
             <ol className="books-grid">
-                {filterBooks.map((book) => {
-                    return Book(book, books, shelves, onUpdateBookShelf, 
-                    (book,event) => this.updateBooksOnShelfChange(book,event))})
-                }
+                {filterBooks.map((book) => (
+                    <Book
+                        key={book.id}
+                        book={book}
+                        books={books}
+                        shelves={shelves}
+                        onUpdateBookShelf={onUpdateBookShelf}
+                        onUpdateBooksOnShelfChange={(book,event) => 
+                        this.updateBooksOnShelfChange(book,event)}
+                    />
+                ))}
             </ol>
         )
     }
