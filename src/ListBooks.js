@@ -17,7 +17,7 @@ class ListBooks extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             books: nextProps.books
-        })
+        });
     }
 
     updateBooksOnShelfChange(book,event){

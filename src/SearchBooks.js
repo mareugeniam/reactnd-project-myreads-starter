@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Debounce } from 'react-throttle'
 import PropTypes from 'prop-types'
 import ListBooks from './ListBooks'
 import * as BooksAPI from './BooksAPI'
@@ -23,13 +24,14 @@ class SearchBooks extends Component {
 
     onSearch(query){
         BooksAPI.search(query,20).then((searchedBooks) => {
-            const updatedBookList = !searchedBooks.error ?
-            searchedBooks.map(b => {
+            const updatedBookList = searchedBooks.map(b => {
                 let bookFound = this.props.books.find(myBook => myBook.id === b.id);
                 b.shelf = bookFound ? bookFound.shelf : 'none';
                 return b;
-            }) : [];
+            });
             this.setState({ searchedBooks : updatedBookList });              
+        }).catch(err => {
+            this.setState({ searchedBooks: [] });  
         });
     }
 
@@ -55,11 +57,12 @@ class SearchBooks extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input 
-                    type="text" 
-                    placeholder="Search by title or author"
-                    value={query}
-                    onChange={(event) => this.updateQuery(event.target.value)}/>                               
+                <Debounce time="400" handler="onChange">
+                    <input 
+                        type="text" 
+                        placeholder="Search by title or author"
+                        onChange={(event) => this.updateQuery(event.target.value)}/>
+                </Debounce>                              
               </div>
             </div>
             <div className="search-books-results">

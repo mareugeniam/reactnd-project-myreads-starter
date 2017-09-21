@@ -14,11 +14,24 @@ class BooksApp extends React.Component {
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-    })
+    });
   }
 
-  updateBookShelf(book,shelf){
-    BooksAPI.update(book,shelf).then(() => this.componentDidMount())
+  updateBookShelf(book, shelf) {
+    BooksAPI.update(book, shelf).then(() => {
+      this.removeBook(book);
+      book.shelf = shelf;
+      const updatedBookList = this.state.books.concat(book);
+      this.setState({
+        books: updatedBookList
+      });
+    });
+  }
+
+  removeBook = (book) => {
+    this.setState((state) => ({
+      books: state.books.filter((b) => b.id !== book.id)
+    }))
   }
 
   render() {
