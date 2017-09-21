@@ -1,8 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Library from './Library'
-import SearchBooks from './SearchBooks'
-import NotFound from './NotFound'
+import Library from './components/Library'
+import SearchBooks from './components/SearchBooks'
+import NotFound from './components/NotFound'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -19,19 +19,12 @@ class BooksApp extends React.Component {
 
   updateBookShelf(book, shelf) {
     BooksAPI.update(book, shelf).then(() => {
-      this.removeBook(book);
       book.shelf = shelf;
-      const updatedBookList = this.state.books.concat(book);
-      this.setState({
-        books: updatedBookList
-      });
+      
+      this.setState(prevState => ({
+        books: prevState.books.filter(b => b.id !== book.id).concat(book)
+      }));
     });
-  }
-
-  removeBook = (book) => {
-    this.setState((state) => ({
-      books: state.books.filter((b) => b.id !== book.id)
-    }))
   }
 
   render() {
@@ -59,6 +52,7 @@ class BooksApp extends React.Component {
               books={books}
               shelves={shelves}
               onUpdateBookShelf={(book,shelf) => {
+                book.shelf !== shelf &&
                 this.updateBookShelf(book,shelf)
               }}
             />
