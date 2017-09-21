@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Book from './Book'
 
 class ListBooks extends Component {
     static propTypes = {
@@ -36,39 +37,13 @@ class ListBooks extends Component {
 
         return(
             <ol className="books-grid">
-                {filterBooks.map((book) => (
-                    <li key={book.id}>
-                    <div className="book">
-                    <div className="book-top">
-                        <div className="book-cover">
-                            {book.imageLinks !== undefined && (
-                                <img alt={book.title} src={book.imageLinks.smallThumbnail} />
-                            )}
-                        </div>
-                        <div className="book-shelf-changer">
-                        <select 
-                            value={book.shelf} 
-                            onChange={(event) => {
-                                this.state.books && this.updateBooksOnShelfChange(book,event);
-                                onUpdateBookShelf(book,event.target.value);
-                            }}
-                        >
-                            <option disabled>Move to...</option>
-                            {shelves.map((shelf) => (
-                                    <option key={shelf.value} value={shelf.value}>{shelf.title}</option>
-                            ))}
-                            <option value="none">None</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors ? book.authors.join(', '): ''}</div>
-                    </div>
-                </li>
-                ))}
+                {filterBooks.map((book) => {
+                    return Book(book, books, shelves, onUpdateBookShelf, 
+                    (book,event) => this.updateBooksOnShelfChange(book,event))})
+                }
             </ol>
         )
     }
 }
 
-export default ListBooks
+export default ListBooks;

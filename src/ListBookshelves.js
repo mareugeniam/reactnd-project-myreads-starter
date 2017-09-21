@@ -34,4 +34,4 @@ class ListBookshelves extends Component {
     }
 }
 
-export default ListBookshelves
+export default ListBookshelves;

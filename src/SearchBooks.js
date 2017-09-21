@@ -76,4 +76,4 @@ class SearchBooks extends Component {
     }
 }
 
-export default SearchBooks
+export default SearchBooks;
