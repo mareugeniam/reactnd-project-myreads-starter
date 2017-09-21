@@ -40,6 +40,7 @@ Node.js
     ├── App.css # Styles for the app.
     ├── App.js # This is the root of the app.
     ├── App.test.js # Used for testing. Provided with Create React App.
+    ├── Book.js # Class that contains a book structure.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
     ├── icons # Helpful images for the app.
     │   ├── add.svg
@@ -47,8 +48,9 @@ Node.js
     │   └── arrow-drop-down.svg
     ├── index.css # Global styles.
     └── index.js # It is used for DOM rendering only.
-    └── Library.js # Class that contain the Library structure. A library consists of bookshelves with lists of books in each one. The library itself has a title and each bookshelf has a title too.
+    └── Library.js # Class that contains the Library structure. A library consists of bookshelves with lists of books in each one. The library itself has a title and each bookshelf has a title too.
     └── ListBooks.js # Class that contains the structure to show a list of books as a grid and its logic.
     └── ListBookshelves.js # Class that contains the bookshelves structure. A ListBookshelves consist of a list of bookshelves. Each bookshelf consists of a title and a list of books.
+    └── NotFound.js # Class that represents every inexistent page. 404 error class.
     └── SearchBooks.js # Class that contains the logic for the search page.
 ```
